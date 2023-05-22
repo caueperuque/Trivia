@@ -1,6 +1,6 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
-import Login from './components/Login';
+import Login from './pages/Login';
 import './App.css';
 
 export default function App() {
