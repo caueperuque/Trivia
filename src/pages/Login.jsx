@@ -25,15 +25,25 @@ class Login extends Component {
     });
   };
 
-  handleClick = (e) => {
-    e.preventDefault();
-  };
-
   clickBtn = () => {
     const { history } = this.props;
     history.push('/settings');
+  }
+    
+  handleClick = async (e) => {
+    e.preventDefault();
+    const { history } = this.props;
+    await this.getAPI();
+    history.push('/play');
   };
 
+  getAPI = async () => {
+    const URL_API = 'https://opentdb.com/api_token.php?command=request';
+    const response = await fetch(URL_API);
+    const JSON_DATA = await response.json();
+    const { token } = JSON_DATA;
+    localStorage.setItem('token', token);
+  };
   render() {
     const { isDisable, name, email } = this.state;
     return (
@@ -67,6 +77,7 @@ class Login extends Component {
           >
             Play
           </button>
+
           <button
             type="button"
             data-testid="btn-settings"
@@ -83,6 +94,7 @@ class Login extends Component {
 Login.propTypes = {
   history: PropTypes.shape({
     push: PropTypes.func,
-  }).isRequired };
+  }),
+}.isRequired;
 
 export default connect()(Login);
