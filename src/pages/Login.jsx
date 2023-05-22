@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 class Login extends Component {
   state = {
@@ -26,6 +27,11 @@ class Login extends Component {
 
   handleClick = (e) => {
     e.preventDefault();
+  };
+
+  clickBtn = () => {
+    const { history } = this.props;
+    history.push('/settings');
   };
 
   render() {
@@ -61,10 +67,22 @@ class Login extends Component {
           >
             Play
           </button>
+          <button
+            type="button"
+            data-testid="btn-settings"
+            onClick={ this.clickBtn }
+          >
+            Configurações
+
+          </button>
         </form>
       </div>
     );
   }
 }
+Login.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func,
+  }).isRequired };
 
 export default connect()(Login);
