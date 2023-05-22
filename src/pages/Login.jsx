@@ -25,6 +25,11 @@ class Login extends Component {
     });
   };
 
+  clickBtn = () => {
+    const { history } = this.props;
+    history.push('/settings');
+  }
+    
   handleClick = async (e) => {
     e.preventDefault();
     const { history } = this.props;
@@ -39,7 +44,6 @@ class Login extends Component {
     const { token } = JSON_DATA;
     localStorage.setItem('token', token);
   };
-
   render() {
     const { isDisable, name, email } = this.state;
     return (
@@ -73,12 +77,20 @@ class Login extends Component {
           >
             Play
           </button>
+
+          <button
+            type="button"
+            data-testid="btn-settings"
+            onClick={ this.clickBtn }
+          >
+            Configurações
+
+          </button>
         </form>
       </div>
     );
   }
 }
-
 Login.propTypes = {
   history: PropTypes.shape({
     push: PropTypes.func,
