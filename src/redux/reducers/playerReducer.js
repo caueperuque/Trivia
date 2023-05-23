@@ -1,4 +1,4 @@
-import { GET_LOGIN } from '../actions/action-types';
+import { GET_LOGIN, GET_SCORE } from '../actions/action-types';
 
 const INITIAL_STATE = {
   name: '',
@@ -14,6 +14,11 @@ const playerReducer = (state = INITIAL_STATE, action) => {
       ...state,
       gravatarEmail: action.email,
       name: action.name,
+    };
+  case GET_SCORE:
+    return {
+      ...state,
+      score: action.score,
     };
   default:
     return state;

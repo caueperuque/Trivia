@@ -1,8 +1,10 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
+import { connect } from 'react-redux';
 import Header from '../components/Header';
 import './styles/Game.css';
+import { getScore } from '../redux/actions/action-index';
 
 class Game extends Component {
   state = {
@@ -21,7 +23,6 @@ class Game extends Component {
 
   startTimer = () => {
     const seconds = 1000;
-    // const { timerRemaining } = this.state;
     const timerInterval = setInterval(() => {
       this.setState((prevState) => {
         const newTimeRemaining = prevState.timerRemaining - 1;
@@ -76,6 +77,20 @@ class Game extends Component {
     });
   };
 
+  sumScore = (e) => {
+    const { score, dispatch } = this.props;
+    const { timerRemaining, currQuestion } = this.state;
+    const { difficulty } = currQuestion;
+    const scoreDifficulty = {
+      hard: 3,
+      medium: 2,
+      easy: 1,
+    };
+    const sumTen = 10;
+    this.answerClick(e);
+    dispatch(getScore(score + sumTen + (timerRemaining * scoreDifficulty[difficulty])));
+  };
+
   render() {
     const {
       currQuestion,
@@ -103,7 +118,7 @@ class Game extends Component {
               data-testid="correct-answer"
               key={ Math.random() }
               className={ `${correct} ${buttonsDisabled ? 'disabled' : ''}` }
-              onClick={ this.answerClick }
+              onClick={ this.sumScore }
               disabled={ buttonsDisabled }
             >
               {answer}
@@ -138,4 +153,8 @@ Game.propTypes = {
   }),
 }.isRequired;
 
-export default Game;
+const mapStateToProps = (globalState) => ({
+  score: globalState.player.score,
+});
+
+export default connect(mapStateToProps)(Game);
