@@ -35,12 +35,8 @@ class Login extends Component {
     e.preventDefault();
     const { history, dispatch } = this.props;
     await this.getAPI();
-<<<<<<< HEAD
-    history.push('/game');
-=======
     dispatch(getLogin(this.state));
-    history.push('/play');
->>>>>>> e945d630695bdd03dd1760a939ce857e8afd2b8f
+    history.push('/game');
   };
 
   getAPI = async () => {
