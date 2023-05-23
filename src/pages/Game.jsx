@@ -2,10 +2,13 @@ import { Component } from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 import Header from '../components/Header';
+import './styles/Game.css';
 
 class Game extends Component {
   state = {
     // allQuestions: [],
+    correct: '',
+    incorrect: '',
     currQuestion: {},
     shuflleAnswers: [],
   };
@@ -42,8 +45,22 @@ class Game extends Component {
     }
   };
 
+  answerClick = (e) => {
+    e.preventDefault();
+    this.setState({
+      incorrect: 'game__incorrect',
+      correct: 'game__correct',
+    });
+  };
+
   render() {
-    const { currQuestion, shuflleAnswers, correctAnswer } = this.state;
+    const {
+      currQuestion,
+      shuflleAnswers,
+      correctAnswer,
+      incorrect,
+      correct,
+    } = this.state;
     const {
       category,
       // type,
@@ -63,11 +80,21 @@ class Game extends Component {
         <div data-testid="answer-options">
           {shuflleAnswers.map((answer, index) => (
             correctAnswer === answer ? (
-              <button data-testid="correct-answer" key={ Math.random() }>
+              <button
+                data-testid="correct-answer"
+                key={ Math.random() }
+                className={ correct }
+                onClick={ this.answerClick }
+              >
                 {answer}
               </button>
             ) : (
-              <button data-testid={ `wrong-answer-${index}` } key={ Math.random() }>
+              <button
+                data-testid={ `wrong-answer-${index}` }
+                key={ Math.random() }
+                className={ incorrect }
+                onClick={ this.answerClick }
+              >
                 {answer}
               </button>
             )

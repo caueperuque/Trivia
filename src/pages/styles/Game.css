@@ -1,0 +1,7 @@
+.game__correct {
+  border: 3px solid rgb(6, 240, 15);
+}
+
+.game__incorrect {
+  border: 3px solid red;
+}
