@@ -6,7 +6,6 @@ import './App.css';
 import Settings from './pages/Settings';
 import Play from './pages/Play';
 
-
 export default function App() {
   return (
     <Switch>
