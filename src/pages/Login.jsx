@@ -34,7 +34,7 @@ class Login extends Component {
     e.preventDefault();
     const { history } = this.props;
     await this.getAPI();
-    history.push('/play');
+    history.push('/game');
   };
 
   getAPI = async () => {

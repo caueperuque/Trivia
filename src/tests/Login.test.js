@@ -82,7 +82,7 @@ describe('Teste Login', () => {
     userEvent.click(btn);
     await waitFor(() => {
       const { pathname } = history.location;
-      expect(pathname).toBe('/play');
+      expect(pathname).toBe('/game');
     });
   });
 
