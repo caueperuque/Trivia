@@ -23,7 +23,6 @@ class Game extends Component {
 
   startTimer = () => {
     const seconds = 1000;
-    // const { timerRemaining } = this.state;
     const timerInterval = setInterval(() => {
       this.setState((prevState) => {
         const newTimeRemaining = prevState.timerRemaining - 1;
