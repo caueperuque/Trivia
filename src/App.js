@@ -3,8 +3,8 @@ import { Route, Switch } from 'react-router-dom';
 import Login from './pages/Login';
 import './App.css';
 
+import Game from './pages/Game';
 import Settings from './pages/Settings';
-import Play from './pages/Play';
 
 export default function App() {
   return (
@@ -12,7 +12,7 @@ export default function App() {
       <Route exact path="/" component={ Login } />
 
       <Route exact path="/settings" component={ Settings } />
-      <Route exact path="/play" component={ Play } />
+      <Route exact path="/game" component={ Game } />
 
     </Switch>
   );
