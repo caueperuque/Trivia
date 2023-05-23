@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { getLogin } from '../redux/actions/action-index';
 
 class Login extends Component {
   state = {
@@ -32,8 +33,9 @@ class Login extends Component {
 
   handleClick = async (e) => {
     e.preventDefault();
-    const { history } = this.props;
+    const { history, dispatch } = this.props;
     await this.getAPI();
+    dispatch(getLogin(this.state));
     history.push('/play');
   };
 
