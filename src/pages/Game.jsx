@@ -1,8 +1,10 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
+import { connect } from 'react-redux';
 import Header from '../components/Header';
 import './styles/Game.css';
+import { getScore } from '../redux/actions/action-index';
 
 class Game extends Component {
   state = {
@@ -37,7 +39,6 @@ class Game extends Component {
       const answers = [...incorrectAnswer, correctAnswer];
       const shuflleAnswers = _.shuffle(answers);
       this.setState({
-        // allQuestions: results,
         currQuestion: results[0],
         shuflleAnswers,
         correctAnswer,
@@ -51,6 +52,15 @@ class Game extends Component {
       incorrect: 'game__incorrect',
       correct: 'game__correct',
     });
+  };
+
+  sumPoint = async (e) => {
+    // e.preventDefault();
+    this.answerClick(e);
+    const { score, dispatch } = this.props;
+    setTimeout(() => {
+      dispatch(getScore(score + 1));
+    }, 1);
   };
 
   render() {
@@ -84,7 +94,7 @@ class Game extends Component {
                 data-testid="correct-answer"
                 key={ Math.random() }
                 className={ correct }
-                onClick={ this.answerClick }
+                onClick={ this.sumPoint }
               >
                 {answer}
               </button>
@@ -111,4 +121,8 @@ Game.propTypes = {
   }),
 }.isRequired;
 
-export default Game;
+const mapStateToProps = (globalState) => ({
+  score: globalState.player.score,
+});
+
+export default connect(mapStateToProps)(Game);
