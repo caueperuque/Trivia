@@ -10,7 +10,7 @@ class Game extends Component {
     incorrect: '',
     currQuestion: {},
     shuflleAnswers: [],
-    timerRemaining: 10,
+    timerRemaining: 30,
     timerInterval: null,
   };
 
