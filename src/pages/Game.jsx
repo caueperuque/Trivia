@@ -5,21 +5,29 @@ import { connect } from 'react-redux';
 import Header from '../components/Header';
 import './styles/Game.css';
 import { getScore } from '../redux/actions/action-index';
+import NextBtn from '../components/NextBtn';
 
 class Game extends Component {
   state = {
+    allQuestions: [],
     correct: '',
     incorrect: '',
     currQuestion: {},
+    currQuestionIndex: 0,
     shuflleAnswers: [],
     timerRemaining: 30,
     timerInterval: null,
+    btnNext: false,
   };
 
   async componentDidMount() {
     await this.testToken();
     this.startTimer();
   }
+
+  // componentDidUpdate() {
+  //   this.startTimer();
+  // }
 
   startTimer = () => {
     const seconds = 1000;
@@ -60,7 +68,7 @@ class Game extends Component {
       const shuflleAnswers = _.shuffle(answers);
       clearInterval(this.timerInterval);
       this.setState({
-        // allQuestions: results,
+        allQuestions: results,
         // timerRemaning: 0,
         currQuestion: results[0],
         shuflleAnswers,
@@ -71,9 +79,12 @@ class Game extends Component {
 
   answerClick = (e) => {
     e.preventDefault();
+    const { timerRemaining } = this.state;
     this.setState({
       incorrect: 'game__incorrect',
       correct: 'game__correct',
+      btnNext: true,
+      buttonsDisabled: timerRemaining <= 0 || true,
     });
   };
 
@@ -91,6 +102,37 @@ class Game extends Component {
     dispatch(getScore(score + sumTen + (timerRemaining * scoreDifficulty[difficulty])));
   };
 
+  nextClick = (e) => {
+    e.preventDefault();
+    const { currQuestionIndex, allQuestions } = this.state;
+    const nextIndex = currQuestionIndex + 1;
+    this.setState({
+      currQuestionIndex: nextIndex,
+      currQuestion: allQuestions[nextIndex],
+      buttonsDisabled: false,
+    }, () => {
+      this.showAnswers();
+      clearInterval(this.timerInterval);
+    });
+  };
+
+  showAnswers = () => {
+    const { currQuestion } = this.state;
+    const {
+      incorrect_answers: incorrectAnswer,
+      correct_answer: correctAnswer,
+    } = currQuestion;
+    const answers = [...incorrectAnswer, correctAnswer];
+    const shuflleAnswers = _.shuffle(answers);
+    this.setState({
+      shuflleAnswers,
+      timerRemaining: 30,
+      correctAnswer,
+      correct: '',
+      incorrect: '',
+    });
+  };
+
   render() {
     const {
       currQuestion,
@@ -99,13 +141,15 @@ class Game extends Component {
       incorrect,
       correct,
       timerRemaining,
+      btnNext,
+      buttonsDisabled,
     } = this.state;
     const {
       category,
       question,
     } = currQuestion;
 
-    const buttonsDisabled = timerRemaining <= 0;
+    const timing = timerRemaining <= 0;
 
     return (
       <>
@@ -119,7 +163,7 @@ class Game extends Component {
               key={ Math.random() }
               className={ `${correct} ${buttonsDisabled ? 'disabled' : ''}` }
               onClick={ this.sumScore }
-              disabled={ buttonsDisabled }
+              disabled={ buttonsDisabled || timing }
             >
               {answer}
             </button>
@@ -129,17 +173,18 @@ class Game extends Component {
               key={ Math.random() }
               className={ `${incorrect} ${buttonsDisabled ? 'disabled' : ''}` }
               onClick={ this.answerClick }
-              disabled={ buttonsDisabled }
+              disabled={ buttonsDisabled || timing }
             >
               {answer}
             </button>
           )))}
         </div>
+        { btnNext && (
+          <NextBtn handleClick={ this.nextClick } />
+        )}
         <div>
           Tempo Restante:
-          {' '}
           {timerRemaining}
-          {' '}
           Segundos
         </div>
       </>
