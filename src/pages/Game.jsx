@@ -4,7 +4,7 @@ import _ from 'lodash';
 import { connect } from 'react-redux';
 import Header from '../components/Header';
 import './styles/Game.css';
-import { getScore } from '../redux/actions/action-index';
+import { getAssertions, getScore } from '../redux/actions/action-index';
 import NextBtn from '../components/NextBtn';
 
 class Game extends Component {
@@ -12,6 +12,7 @@ class Game extends Component {
     allQuestions: [],
     correct: '',
     incorrect: '',
+    questionsCorrect: 0,
     currQuestion: {},
     currQuestionIndex: 0,
     shuflleAnswers: [],
@@ -90,7 +91,7 @@ class Game extends Component {
 
   sumScore = (e) => {
     const { score, dispatch } = this.props;
-    const { timerRemaining, currQuestion } = this.state;
+    const { timerRemaining, currQuestion, questionsCorrect } = this.state;
     const { difficulty } = currQuestion;
     const scoreDifficulty = {
       hard: 3,
@@ -98,8 +99,13 @@ class Game extends Component {
       easy: 1,
     };
     const sumTen = 10;
-    this.answerClick(e);
+    const testess = questionsCorrect + 1;
+    this.setState({
+      questionsCorrect: testess,
+    }, () => this.answerClick(e));
     dispatch(getScore(score + sumTen + (timerRemaining * scoreDifficulty[difficulty])));
+    dispatch(getAssertions(testess));
+    // this.teste();
   };
 
   nextClick = (e) => {
@@ -184,7 +190,7 @@ class Game extends Component {
             </button>
           )))}
         </div>
-        { btnNext && (
+        {btnNext && (
           <NextBtn handleClick={ this.nextClick } />
         )}
         <div>
@@ -205,6 +211,7 @@ Game.propTypes = {
 
 const mapStateToProps = (globalState) => ({
   score: globalState.player.score,
+  assertions: globalState.player.assertions,
 });
 
 export default connect(mapStateToProps)(Game);

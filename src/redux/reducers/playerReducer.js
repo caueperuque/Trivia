@@ -1,8 +1,8 @@
-import { GET_LOGIN, GET_SCORE } from '../actions/action-types';
+import { GET_ASSERTIONS, GET_LOGIN, GET_SCORE } from '../actions/action-types';
 
 const INITIAL_STATE = {
   name: '',
-  assertions: '',
+  assertions: 0,
   score: 0,
   gravatarEmail: '',
 };
@@ -19,6 +19,11 @@ const playerReducer = (state = INITIAL_STATE, action) => {
     return {
       ...state,
       score: action.score,
+    };
+  case GET_ASSERTIONS:
+    return {
+      ...state,
+      assertions: action.assertions,
     };
   default:
     return state;
