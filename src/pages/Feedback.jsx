@@ -4,6 +4,16 @@ import PropTypes from 'prop-types';
 import Header from '../components/Header';
 
 class Feedback extends Component {
+  handleClick = () => {
+    const { history } = this.props;
+    history.push('/');
+  };
+
+  rankingBtn = () => {
+    const { history } = this.props;
+    history.push('/ranking');
+  };
+
   render() {
     const { assertions, score } = this.props;
     const three = 3;
@@ -16,8 +26,24 @@ class Feedback extends Component {
           ) : (
             <p data-testid="feedback-text">Well Done!</p>)
         }
-        <p data-testid="feedback-total-score">{score}</p>
-        <p data-testid="feedback-total-question">{ assertions }</p>
+        <p data-testid="feedback-total-score">
+          { score }
+        </p>
+        <p data-testid="feedback-total-question">
+          { assertions }
+        </p>
+        <button
+          data-testid="btn-play-again"
+          onClick={ this.handleClick }
+        >
+          Play Again
+        </button>
+        <button
+          data-testid="btn-ranking"
+          onClick={ this.rankingBtn }
+        >
+          Ranking
+        </button>
       </div>
     );
   }
