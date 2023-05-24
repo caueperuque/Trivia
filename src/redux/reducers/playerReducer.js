@@ -1,4 +1,9 @@
-import { GET_ASSERTIONS, GET_LOGIN, GET_SCORE } from '../actions/action-types';
+import {
+  GET_ASSERTIONS,
+  GET_LOGIN,
+  GET_SCORE,
+  GET_AVATAR,
+} from '../actions/action-types';
 
 const INITIAL_STATE = {
   name: '',
