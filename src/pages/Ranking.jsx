@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 class Ranking extends Component {
   state = {
@@ -15,7 +16,10 @@ class Ranking extends Component {
     this.setState({
       player: objPlayer,
     });
-  // console.log(objPlayer.map(({ name }) => name));
+
+  handleClick = () => {
+    const { history } = this.props;
+    history.push('/');
   };
 
   render() {
@@ -37,9 +41,25 @@ class Ranking extends Component {
           </div>
         ) }
       </>
-
+      <div data-testid="ranking-title">
+        Ranking
+        <button
+          onClick={ this.handleClick }
+          data-testid="btn-go-home"
+        >
+          Go Home
+        </button>
+      </div>
     );
   }
 }
+
+Ranking.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func,
+  }),
+}.isRequired;
+
+//
 
 export default connect()(Ranking);
