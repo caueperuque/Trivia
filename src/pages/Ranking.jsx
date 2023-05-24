@@ -61,3 +61,5 @@ Ranking.propTypes = {
 }.isRequired;
 
 export default connect()(Ranking);
+
+//
