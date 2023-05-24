@@ -104,7 +104,12 @@ class Game extends Component {
 
   nextClick = (e) => {
     e.preventDefault();
+    const { history } = this.props;
     const { currQuestionIndex, allQuestions } = this.state;
+    const maxQuestion = 4;
+    if (currQuestionIndex === maxQuestion) {
+      history.push('/feedback');
+    }
     const nextIndex = currQuestionIndex + 1;
     this.setState({
       currQuestionIndex: nextIndex,
