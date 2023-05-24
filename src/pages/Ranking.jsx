@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 class Ranking extends Component {
   state = {
-    player: '',
+    player: [],
   };
 
   componentDidMount() {
@@ -13,9 +13,10 @@ class Ranking extends Component {
 
   getStorage = () => {
     const objPlayer = JSON.parse(localStorage.getItem('ranking'));
-    this.setState({
-      player: objPlayer,
-    });
+    this.setState((prevState) => ({
+      player: [...prevState.player, objPlayer],
+    }));
+  };
 
   handleClick = () => {
     const { history } = this.props;
@@ -25,30 +26,29 @@ class Ranking extends Component {
   render() {
     const { player } = this.state;
     return (
-      <>
+      <div>
         <div data-testid="ranking-title">
           Ranking
         </div>
-        { player && (
+        {player.length > 0 && (
           <div>
-            { player.map(({ name, score, picture }) => (
-              <>
+            {player.map(({ name, score, picture }, index) => (
+              <div key={ index }>
                 <img src={ picture } alt={ name } />
-                <p data-testid={ `player-name-${index}` }>{ name }</p>
-                <p data-testid={ `player-score-${index}` }>{ score }</p>
-              </>
-            )) }
+                <p data-testid={ `player-name-${index}` }>{name}</p>
+                <p data-testid={ `player-score-${index}` }>{score}</p>
+              </div>
+            ))}
           </div>
-        ) }
-      </>
-      <div data-testid="ranking-title">
-        Ranking
-        <button
-          onClick={ this.handleClick }
-          data-testid="btn-go-home"
-        >
-          Go Home
-        </button>
+        )}
+        <div>
+          <button
+            onClick={ this.handleClick }
+            data-testid="btn-go-home"
+          >
+            Go Home
+          </button>
+        </div>
       </div>
     );
   }
@@ -60,6 +60,6 @@ Ranking.propTypes = {
   }),
 }.isRequired;
 
-//
-
 export default connect()(Ranking);
+
+//
