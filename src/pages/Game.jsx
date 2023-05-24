@@ -110,10 +110,16 @@ class Game extends Component {
 
   nextClick = (e) => {
     e.preventDefault();
-    const { history } = this.props;
+    const { history, name, score, gravatarAvatar } = this.props;
     const { currQuestionIndex, allQuestions } = this.state;
     const maxQuestion = 4;
     if (currQuestionIndex === maxQuestion) {
+      const ranking = [{
+        name,
+        score,
+        picture: gravatarAvatar,
+      }];
+      localStorage.setItem('ranking', JSON.stringify(ranking));
       history.push('/feedback');
     }
     const nextIndex = currQuestionIndex + 1;
@@ -212,6 +218,8 @@ Game.propTypes = {
 const mapStateToProps = (globalState) => ({
   score: globalState.player.score,
   assertions: globalState.player.assertions,
+  name: globalState.player.name,
+  gravatarAvatar: globalState.player.gravatarAvatar,
 });
 
 export default connect(mapStateToProps)(Game);

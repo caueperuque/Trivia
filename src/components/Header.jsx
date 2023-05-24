@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import md5 from 'crypto-js/md5';
+import getAvatar from '../redux/actions/action-index';
 // import PropTypes from 'prop-types';
 
 class Header extends Component {
@@ -10,12 +11,13 @@ class Header extends Component {
   };
 
   componentDidMount() {
-    const { email } = this.props;
+    const { email, dispatch } = this.props;
     const hash = md5(email).toString();
     const linkAvatar = `https://www.gravatar.com/avatar/${hash}`;
     this.setState({
       avatar: linkAvatar,
     });
+    dispatch(getAvatar(linkAvatar));
   }
 
   render() {

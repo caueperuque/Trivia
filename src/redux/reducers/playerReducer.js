@@ -5,6 +5,7 @@ const INITIAL_STATE = {
   assertions: 0,
   score: 0,
   gravatarEmail: '',
+  gravatarAvatar: '',
 };
 
 const playerReducer = (state = INITIAL_STATE, action) => {
@@ -24,6 +25,11 @@ const playerReducer = (state = INITIAL_STATE, action) => {
     return {
       ...state,
       assertions: action.assertions,
+    };
+  case GET_AVATAR:
+    return {
+      ...state,
+      gravatarAvatar: action.avatar,
     };
   default:
     return state;
