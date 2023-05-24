@@ -1,4 +1,4 @@
-import { GET_LOGIN, GET_SCORE } from './action-types';
+import { GET_LOGIN, GET_SCORE, GET_ASSERTIONS } from './action-types';
 
 export const getLogin = ({ email, name }) => ({
   type: GET_LOGIN,
@@ -9,4 +9,9 @@ export const getLogin = ({ email, name }) => ({
 export const getScore = (score) => ({
   type: GET_SCORE,
   score,
+});
+
+export const getAssertions = (assertions) => ({
+  type: GET_ASSERTIONS,
+  assertions,
 });
