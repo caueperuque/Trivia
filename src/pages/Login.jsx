@@ -66,7 +66,7 @@ class Login extends Component {
               />
             </label>
             <label htmlFor="input-name">
-              Nome:
+              Name:
               <input
                 data-testid="input-player-name"
                 id="input-name"
@@ -92,8 +92,7 @@ class Login extends Component {
               data-testid="btn-settings"
               onClick={ this.clickBtn }
             >
-              Configurações
-
+              Settings
             </button>
           </div>
         </form>
