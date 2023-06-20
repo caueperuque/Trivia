@@ -171,38 +171,40 @@ class Game extends Component {
     return (
       <>
         <Header />
-        <p data-testid="question-category">{category}</p>
-        <div data-testid="question-text">{question}</div>
-        <div data-testid="answer-options">
-          {shuflleAnswers.map((answer, index) => (correctAnswer === answer ? (
-            <button
-              data-testid="correct-answer"
-              key={ Math.random() }
-              className={ `${correct} ${buttonsDisabled ? 'disabled' : ''}` }
-              onClick={ this.sumScore }
-              disabled={ buttonsDisabled || timing }
-            >
-              {answer}
-            </button>
-          ) : (
-            <button
-              data-testid={ `wrong-answer-${index}` }
-              key={ Math.random() }
-              className={ `${incorrect} ${buttonsDisabled ? 'disabled' : ''}` }
-              onClick={ this.answerClick }
-              disabled={ buttonsDisabled || timing }
-            >
-              {answer}
-            </button>
-          )))}
-        </div>
-        {btnNext && (
-          <NextBtn handleClick={ this.nextClick } />
-        )}
-        <div>
-          Tempo Restante:
-          {timerRemaining}
-          Segundos
+        <div className="game__container">
+          <p data-testid="question-category" className="game__title">
+            {`Category - ${category}`}
+          </p>
+          <div data-testid="question-text">{`Question: ${question}`}</div>
+          <div data-testid="answer-options">
+            {shuflleAnswers.map((answer, index) => (correctAnswer === answer ? (
+              <button
+                data-testid="correct-answer"
+                key={ Math.random() }
+                className={ `${correct} ${buttonsDisabled ? 'disabled' : ''}` }
+                onClick={ this.sumScore }
+                disabled={ buttonsDisabled || timing }
+              >
+                {answer}
+              </button>
+            ) : (
+              <button
+                data-testid={ `wrong-answer-${index}` }
+                key={ Math.random() }
+                className={ `${incorrect} ${buttonsDisabled ? 'disabled' : ''}` }
+                onClick={ this.answerClick }
+                disabled={ buttonsDisabled || timing }
+              >
+                {answer}
+              </button>
+            )))}
+          </div>
+          {btnNext && (
+            <NextBtn handleClick={ this.nextClick } />
+          )}
+          <div>
+            {`Timer: ${timerRemaining}s`}
+          </div>
         </div>
       </>
     );

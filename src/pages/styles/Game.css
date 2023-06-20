@@ -5,3 +5,18 @@
 .game__incorrect {
   border: 3px solid red;
 }
+
+.game__title {
+  font-size: 25px;
+  text-align: center;
+  text-decoration: underline;
+}
+
+.game__container {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  /* border: solid red 2px; */
+  align-items: center;
+  height: 70vh;
+}

@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import md5 from 'crypto-js/md5';
 import { getAvatar } from '../redux/actions/action-index';
-// import PropTypes from 'prop-types';
+import './Header.css';
 
 class Header extends Component {
   state = {
@@ -24,24 +24,25 @@ class Header extends Component {
     const { avatar } = this.state;
     const { name, score } = this.props;
     return (
-      <div>
+      <div className="header__container">
         {avatar && (
           <img
             data-testid="header-profile-picture"
             alt="Avatar de usuario"
             src={ avatar }
+            className="header__img"
           />
         )}
 
         <p
           data-testid="header-player-name"
         >
-          {name}
+          {`Welcome, ${name}`}
         </p>
         <p
           data-testid="header-score"
         >
-          {score}
+          {`Your score: ${score} pts`}
 
         </p>
       </div>

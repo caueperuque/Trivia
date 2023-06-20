@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { getLogin } from '../redux/actions/action-index';
+import './styles/Login.css';
 
 class Login extends Component {
   state = {
@@ -50,45 +51,51 @@ class Login extends Component {
   render() {
     const { isDisable, name, email } = this.state;
     return (
-      <div>
-        <form>
-          <label htmlFor="input-email">
-            <input
-              data-testid="input-gravatar-email"
-              id="input-email"
-              type="email"
-              name="email"
-              value={ email }
-              onChange={ this.handleChange }
-            />
-          </label>
-          <label htmlFor="input-name">
-            <input
-              data-testid="input-player-name"
-              id="input-name"
-              type="text"
-              name="name"
-              value={ name }
-              onChange={ this.handleChange }
-            />
-          </label>
-          <button
-            data-testid="btn-play"
-            type="button"
-            disabled={ isDisable }
-            onClick={ this.handleClick }
-          >
-            Play
-          </button>
+      <div className="login__container-main">
+        <form className="login__form">
+          <div className="login__div-input">
+            <label htmlFor="input-email">
+              Email:
+              <input
+                data-testid="input-gravatar-email"
+                id="input-email"
+                type="email"
+                name="email"
+                value={ email }
+                onChange={ this.handleChange }
+              />
+            </label>
+            <label htmlFor="input-name">
+              Nome:
+              <input
+                data-testid="input-player-name"
+                id="input-name"
+                type="text"
+                name="name"
+                value={ name }
+                onChange={ this.handleChange }
+              />
+            </label>
+            <button
+              className="login__btn-play"
+              data-testid="btn-play"
+              type="button"
+              disabled={ isDisable }
+              onClick={ this.handleClick }
+            >
+              Play
+            </button>
 
-          <button
-            type="button"
-            data-testid="btn-settings"
-            onClick={ this.clickBtn }
-          >
-            Configurações
+            <button
+              className="login__btn-config"
+              type="button"
+              data-testid="btn-settings"
+              onClick={ this.clickBtn }
+            >
+              Configurações
 
-          </button>
+            </button>
+          </div>
         </form>
       </div>
     );
